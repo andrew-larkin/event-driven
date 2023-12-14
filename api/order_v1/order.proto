@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package api.order_v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "github.com/andrew-larkin/event-driven/calendar/pkg/calendarv1";
+
+service OrderV1 {
+  rpc Create(CreateRequest) returns (CreateResponse){
+    option (google.api.http) = {
+    post: "/note/v1/create"
+        body: "*"
+    };
+  }
+}
+
+message CreateRequest {
+  Order order = 1;
+}
+
+message CreateResponse {
+  OrderInfo orderInfo = 1;
+}
+
+message Order {
+  int64 itemID = 1;
+  OrderInfo orderInfo = 2;
+  string paymentMode = 3;
+}
+
+message OrderInfo {
+  int64 orderID = 1;
+  string address = 2;
+  string itemTitle = 3;
+  int64 quantity = 4;
+  int64 amount = 5;
+}
+
+
